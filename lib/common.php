@@ -21,7 +21,7 @@ function convertSqlDate($sqlDate)
 function countCommentsForPost($postId)
 {
     $conn = $GLOBALS['mysqli'];
-    isset($_GET['post_id']) ? $postId = $_GET['post_id'] : $postId = 0;
+    //isset($_GET['post_id']) ? $postId = $_GET['post_id'] : $postId = 0;
     $query = "SELECT COUNT(*) c FROM comment WHERE post_id = $postId";
     $stmt = mysqli_query($conn, $query);
     return (int) $stmt->fetch_column();

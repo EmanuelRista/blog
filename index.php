@@ -37,6 +37,7 @@ if ($stmt === false) {
     </div>
     <p>
         <?php echo htmlEscape($row['body']) ?>
+
         <!--  La ragione di htmlspecialchars è che, se l'input dell'utente (il titolo di un blog o un post di blog in questo caso) contiene parentesi angolari, potrebbe interrompere l'HTML utilizzato nel layout della pagina e, peggio ancora, potrebbe consentire a un utente di iniettare JavaScript non autorizzato che verrebbe eseguito. ATTENZIONE: sostituito con funzione htmlEscape -->
         (<?php echo countCommentsForPost($row['id']) ?> comments)
     </p>
