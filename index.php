@@ -33,11 +33,12 @@ if ($stmt === false) {
         <?php echo htmlEscape($row['title']) ?>
     </h2>
     <div>
-        <?php echo $row['created_at'] ?>
+        <?php echo convertSqlDate($row['created_at']) ?>
     </div>
     <p>
         <?php echo htmlEscape($row['body']) ?>
         <!--  La ragione di htmlspecialchars è che, se l'input dell'utente (il titolo di un blog o un post di blog in questo caso) contiene parentesi angolari, potrebbe interrompere l'HTML utilizzato nel layout della pagina e, peggio ancora, potrebbe consentire a un utente di iniettare JavaScript non autorizzato che verrebbe eseguito. ATTENZIONE: sostituito con funzione htmlEscape -->
+        (<?php echo countCommentsForPost($row['id']) ?> comments)
     </p>
     <p>
         <a href="view-post.php?post_id=<?php echo $row['id'] ?>">Read more...</a>

@@ -7,17 +7,18 @@ $root = getRootPath();
 //se ci sono errori di connessione al database
 $error = mysqli_connect_errno();
 
-/* QUANTE ROWS ABBIAMO CREATO */
+$count = array();
 
-$query = "SELECT COUNT(*) FROM post;";
-
-// Esegue la query e ne conserva il risultato
-$stmt = mysqli_query($conn, $query);
-
-if ($stmt) { //se il risultato c'è
-    $count = $stmt->fetch_column(); //come fetch_assoc ma ritorna una stringa
-};
-
+foreach (array('post', 'comment') as $tableName) {
+    if (!$error) {
+        $query = "SELECT COUNT(*) AS c FROM " . $tableName;
+        $stmt = mysqli_query($conn, $query);
+        if ($stmt) {
+            // We store each count in an associative array
+            $count[$tableName] = $stmt->fetch_column();
+        }
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -54,12 +55,18 @@ if ($stmt) { //se il risultato c'è
     ?>
     <div class="success box">
         Connessione al database riuscita.
-        <?php if ($count) :
-            ?>
-        <?php echo $count
-                ?> nuove righe sono state create.
-        <?php endif
-            ?>
+        <?php foreach (array('post', 'comment') as $tableName) : ?>
+        <?php if (isset($count[$tableName])) : ?>
+        <?php // Prints the count 
+                    ?>
+        <?php echo $count[$tableName] ?> nuovi
+        <?php // Prints the name of the thing 
+                    ?>
+        <?= ($tableName === 'comment') ? 'commenti' : null ?>
+        <?= ($tableName === 'post') ? 'post' : null ?>
+        sono stati creati.
+        <?php endif ?>
+        <?php endforeach ?>
     </div>
     <?php endif
     ?>

@@ -1,2 +1,4 @@
-<h1>Titolo del blog</h1>
-<p>Questo paragrafo riassume di cosa tratta il blog.</p>
+<a href="index.php">
+    <h1>Blog title</h1>
+</a>
+<p>This paragraph summarises what the blog is about.</p>

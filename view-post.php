@@ -7,7 +7,7 @@ $db = $config['mysql_db'];
 
 isset($_GET['post_id']) ? $postId = $_GET['post_id'] : $postId = 0;
 
-$query = "SELECT title, created_at, body FROM post WHERE id = $postId = 0;";
+$query = "SELECT title, created_at, body FROM post WHERE id = $postId";
 
 $stmt = mysqli_query($conn, $query);
 
@@ -15,8 +15,11 @@ if ($stmt === false) {
     throw new Exception('Si è verificato un problema durante la preparazione di questa query');
 }
 
-// Let's get a row
 $row = $stmt->fetch_assoc();
+
+$bodyText = htmlEscape($row['body']);
+$paraText = str_replace("\n", "</p><p>", $bodyText);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,11 +38,32 @@ $row = $stmt->fetch_assoc();
         <?php echo htmlEscape($row['title']) ?>
     </h2>
     <div>
-        <?php echo $row['created_at'] ?>
+        <?php echo convertSqlDate($row['created_at']) ?>
     </div>
     <p>
-        <?php echo htmlEscape($row['body']) ?>
+        <?php echo $paraText ?>
     </p>
+
+    <h3><?php echo countCommentsForPost($postId) ?> comments</h3>
+    <?php if (getCommentsForPost($postId)) { ?>
+    <?php foreach (getCommentsForPost($postId) as $comment) : ?>
+    <?php // For now, we'll use a horizontal rule-off to split it up a bit 
+            ?>
+    <hr />
+    <div class="comment">
+        <div class="comment-meta">
+            Commento scritto da
+            <?php echo htmlEscape($comment['name']) ?>
+            il
+            <?php echo convertSqlDate($comment['created_at']) ?>
+        </div>
+        <div class="comment-body">
+            <?php echo htmlEscape($comment['text']) ?>
+        </div>
+    </div>
+    <?php endforeach ?>
+    <?php } ?>
+
 </body>
 
 </html>
