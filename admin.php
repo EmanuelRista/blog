@@ -41,7 +41,12 @@ if ($stmt === false) {
         <tr>
             <th scope="row"> <?php echo htmlEscape($row['id']) ?></th>
             <td> <?php echo htmlEscape($row['title']) ?></td>
-            <td><button class="btn btn-info">Aggiorna</button></td>
+            <td>
+                <a
+                    href="<?php echo 'update_post.php?post_id=' . $row['id'] . '&post_tl=' . $row['title'] . '&post_bd=' . $row['body']; ?>">
+                    <button class="btn btn-info">Modifica</button>
+                </a>
+            </td>
             <td>
                 <a href="<?php echo 'delete_post.php?post_id=' . $row['id']; ?>">
                     <button class="btn btn-danger">Elimina</button>
