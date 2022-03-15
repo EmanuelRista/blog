@@ -5,3 +5,7 @@ footer {
     padding-left: 16px;
     padding-right: 16px;
 }
+
+.add-post-btn {
+    border-radius: 0.25rem 0.25rem 0 0; 
+}
