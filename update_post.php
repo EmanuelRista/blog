@@ -28,7 +28,7 @@ isset($_GET['post_bd']) ? $postBd = $_GET['post_bd'] : $postBd = '';
         <textarea id="body" rows="10" name="body" class="form-control" placeholder="Scrivi qui il tuo post"
             required><?= $postBd ?></textarea>
     </div>
-    <input id="submit" name="submit" type="submit" value="Modifica" class="btn btn-success"></input>
+    <input id="submit" name="submit" type="submit" value="Modifica" class="btn btn-primary"></input>
     <input type="reset" class="btn btn-warning"></button>
     <a href="/blog/admin.php" class="btn btn-secondary">Torna al Pannello di Controllo</a>
 </form>

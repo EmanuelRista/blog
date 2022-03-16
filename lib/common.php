@@ -32,7 +32,7 @@ function getCommentsForPost($postId)
 
     $conn = $GLOBALS['mysqli'];
     isset($_GET['post_id']) ? $postId = $_GET['post_id'] : $postId = 0;
-    $query = "SELECT id, name, text, created_at, website FROM comment WHERE post_id = $postId";
+    $query = "SELECT id, name, text, created_at FROM comment WHERE post_id = $postId";
     $stmt = mysqli_query($conn, $query);
     return $stmt;
 }

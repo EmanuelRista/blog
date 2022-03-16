@@ -24,46 +24,57 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>
-        A blog application |
-        <?php echo htmlspecialchars($row['title'], ENT_HTML5, 'UTF-8') ?>
-    </title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-</head>
+<?php require 'templates/head.php' ?>
+<?php require 'templates/navbar.php' ?>
 
-<body>
-    <?php require 'templates/title.php' ?>
-    <h2>
-        <?php echo htmlEscape($row['title']) ?>
-    </h2>
-    <div>
-        <?php echo convertSqlDate($row['created_at']) ?>
+<h2>
+    <?php echo htmlEscape($row['title']) ?>
+</h2>
+<div>
+    <?php echo convertSqlDate($row['created_at']) ?>
+</div>
+<p>
+    <?php echo $paraText ?>
+</p>
+
+<h3><?php echo countCommentsForPost($postId) ?> comments</h3>
+<?php if (getCommentsForPost($postId)) { ?>
+<?php foreach (getCommentsForPost($postId) as $comment) : ?>
+<?php // For now, we'll use a horizontal rule-off to split it up a bit 
+        ?>
+<hr />
+<div class="comment">
+    <div class="comment-meta">
+        Commento scritto da
+        <?php echo htmlEscape($comment['name']) ?>
+        il
+        <?php echo convertSqlDate($comment['created_at']) ?>
     </div>
-    <p>
-        <?php echo $paraText ?>
-    </p>
-
-    <h3><?php echo countCommentsForPost($postId) ?> comments</h3>
-    <?php if (getCommentsForPost($postId)) { ?>
-    <?php foreach (getCommentsForPost($postId) as $comment) : ?>
-    <?php // For now, we'll use a horizontal rule-off to split it up a bit 
-            ?>
-    <hr />
-    <div class="comment">
-        <div class="comment-meta">
-            Commento scritto da
-            <?php echo htmlEscape($comment['name']) ?>
-            il
-            <?php echo convertSqlDate($comment['created_at']) ?>
-        </div>
-        <div class="comment-body">
-            <?php echo htmlEscape($comment['text']) ?>
+    <div class="comment-body">
+        <?php echo htmlEscape($comment['text']) ?>
+    </div>
+</div>
+<?php endforeach ?>
+<?php } ?>
+<form method="post" action="comment_handler.php">
+    <div class="mb-3 d-none">
+        <label for="post_id" class="form-label">ID</label>
+        <input type="text" name="post_id" class="form-control" value="<?= $postId ?>">
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Nome</label>
+        <input type="text" name="name" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="text" class="form-label">Commento</label>
+        <div class="form-floating">
+            <textarea class="form-control" name="text" placeholder="Leave a comment here"
+                id="floatingTextarea"></textarea>
+            <label for="floatingTextarea">Lascia qui il tuo commento</label>
         </div>
     </div>
-    <?php endforeach ?>
-    <?php } ?>
+    <button id="submit" name="submit" type="submit" class="btn btn-primary">Submit</button>
+</form>
 
-</body>
-
-</html>
+<?php require 'templates/footer.php' ?>
+<?php require 'templates/bottom.php' ?>

@@ -14,7 +14,7 @@
         <textarea id="body" rows="10" name="body" class="form-control" placeholder="Scrivi qui il tuo post"
             required></textarea>
     </div>
-    <button id="submit_btn" name="submit_btn" type="submit" class="btn btn-success">Crea</button>
+    <button id="submit_btn" name="submit_btn" type="submit" class="btn btn-primary">Crea</button>
     <input type="reset" class="btn btn-warning"></button>
     <a href="/blog/admin.php" class="btn btn-secondary">Torna al Pannello di Controllo</a>
 </form>
