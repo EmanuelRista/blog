@@ -44,12 +44,12 @@ if ($stmt === false) {
             <td>
                 <a
                     href="<?php echo 'update_post.php?post_id=' . $row['id'] . '&post_tl=' . $row['title'] . '&post_bd=' . $row['body']; ?>">
-                    <button class="btn btn-info">Modifica</button>
+                    <button class="btn btn-outline-success">Modifica</button>
                 </a>
             </td>
             <td>
                 <a href="<?php echo 'delete_post.php?post_id=' . $row['id']; ?>">
-                    <button class="btn btn-danger">Elimina</button>
+                    <button class="btn btn-outline-danger">Elimina</button>
                 </a>
             </td>
 
@@ -58,6 +58,9 @@ if ($stmt === false) {
 
     </tbody>
 </table>
+
+<a href="reset-password.php" class="btn btn-warning">Resetta la password</a>
+<a href="logout.php" class="btn btn-danger ml-3">Logout</a>
 
 <?php require 'templates/footer.php' ?>
 <?php require 'templates/bottom.php' ?>
