@@ -1,5 +1,16 @@
 <?php require 'templates/head.php' ?>
-<?php require 'templates/navbar.php' ?>
+<?php require 'templates/navbar.php';
+
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, otherwise redirect to login page
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+
+?>
 
 
 <h1>Inserisci un post</h1>

@@ -1,8 +1,19 @@
 <?php
 // Work out the path to the database, so SQLite/PDO can connect
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, otherwise redirect to login page
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+
 require_once 'lib/common.php';
 require_once 'connection.php';
 $root = getRootPath();
+
+
 
 // esegue una query, gestisce eventuali errori
 

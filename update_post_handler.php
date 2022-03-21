@@ -1,10 +1,17 @@
 <?php
+
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, otherwise redirect to login page
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+
 require 'templates/head.php';
 require 'templates/navbar.php';
 require_once 'connection.php';
-
-
-
 
 $postId = $_POST['id'];
 $postTl = $_POST['title'];
